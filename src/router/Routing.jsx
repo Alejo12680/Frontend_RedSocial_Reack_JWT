@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PublicLayout } from '../../src/components/layout/public/PublicLayout';
+import { PrivateLayout } from '../../src/components/layout/private/PrivateLayout';
 import { Login } from '../components/user/Login';
 import { Register } from '../components/user/Register';
 import { Feed } from '../components/publication/Feed';
 import { Error404 } from '../components/layout/Error404';
 import { AuthProvider } from '../context/AuthProvider';
-import { PublicLayout } from '../components/layout/public/PublicLayout';
-import { PrivateLayout } from '../components/layout/private/PrivateLayout';
+import { Logout } from '../components/user/Logout';
 
 export const Routing = () => {
   return (
@@ -23,6 +24,7 @@ export const Routing = () => {
           <Route path="/redsocial" element={<PrivateLayout />}>
             <Route index element={<Feed />} />
             <Route path='feed' element={<Feed />} />
+            <Route path='logout' element={<Logout />} />
           </Route>
 
           {/* Configuramos la ruta para el error 404 */}

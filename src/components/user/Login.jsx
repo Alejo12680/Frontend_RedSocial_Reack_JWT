@@ -1,5 +1,5 @@
-//import { Global } from "../../helpers/Global";
 import { Global } from "../../helpers/Global";
+import useAuth from "../../hooks/useAuth";
 import { useForm } from "../../hooks/useForm";
 import { useState } from "react";
 
@@ -7,9 +7,12 @@ export const Login = () => {
 
   // Estado para obtener los datos desde el formulario
   const { form, changed } = useForm({});
+
   // Estado para validar si el usuario se identificó correctamente
   const [ logged, setLogged ] = useState("not logged");
-
+  
+  // Estado para usar useAuth y setear los valos del usuario autenticado en el Provider automáticamente
+  const {setAuth} = useAuth();
 
   const loginUser = async(e) => {
     // prevenir que se actualice la pantalla
@@ -36,6 +39,15 @@ export const Login = () => {
       localStorage.setItem("user", JSON.stringify(data.user));
 
       setLogged("logged");
+      
+      // Setear los datos del usuario en el Auth
+      setAuth(data.user);
+
+      // Redirección de 1 segundo
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+
     } else {
       setLogged("error");
     }

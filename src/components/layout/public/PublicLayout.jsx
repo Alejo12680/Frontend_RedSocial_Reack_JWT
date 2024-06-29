@@ -1,8 +1,11 @@
-import { Outlet } from "react-router-dom"
-import { HeaderPub } from "./HeaderPub"
-
+import { Navigate, Outlet } from "react-router-dom";
+import { HeaderPub } from "./HeaderPub";
+import useAuth from '../../../hooks/useAuth';
 
 export const PublicLayout = () => {
+
+  const { auth } = useAuth();
+
   return (
     <>
       {/* LAYOUT */}
@@ -10,7 +13,11 @@ export const PublicLayout = () => {
 
       {/* Contenido Principal */}
       <section className='layout__content'>
-        <Outlet />
+        {!auth._id ?
+            <Outlet />
+          :
+            <Navigate to="/redsocial" />
+        }
       </section>
     </>
   )
